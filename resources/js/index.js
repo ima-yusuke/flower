@@ -1,0 +1,244 @@
+const questionContainer = document.getElementById('quiz')
+const resultContainer = document.getElementById('result')
+const confirmContainer = document.getElementById("confirm");
+const reconfirm = document.getElementById("reconfirm");
+const imgContainer = document.getElementById("tmpImg");
+
+let currentQuestionIndex = 0;
+let flag = false;
+
+// ------------------------------[①質問開始]---------------------------------------------------
+
+const startButton = document.getElementById('start-btn')
+
+startButton.addEventListener('click', () => {
+    startQuiz();
+})
+
+function startQuiz() {
+    let startDiv = startButton.parentNode;
+    startDiv.classList.add('hide')
+    resultContainer.classList.add('hide')
+    questionContainer.classList.remove('hide')
+    showQuestion()
+    countQuestions()
+}
+// ------------------------------[②残り質問数計算＆表示 / 削除]---------------------------------------------------
+function countQuestions(){
+    removeCountQuestion();
+    let totalQuestions = questions.length;
+    let header = document.getElementById("header");
+    let newDiv = document.createElement("div");
+
+    newDiv.innerText =  "質問 "+Number(currentQuestionIndex+1)+"問目/"+totalQuestions+"問中";
+    header.appendChild(newDiv);
+}
+
+function removeCountQuestion(){
+    let header = document.getElementById("header");
+    let divToRemove = header.querySelector("div");
+    if (divToRemove) {
+        divToRemove.remove();
+    }
+}
+
+// ------------------------------[③質問&回答作成]---------------------------------------------------
+
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
+
+function showQuestion() {
+
+    // 質問作成
+    questionElement.innerText = questions[currentQuestionIndex]["question"]
+
+    // 回答選択肢作成
+    createOptions()
+}
+
+// ------------------------------[④質問選択]---------------------------------------------------
+let answersValueArray = [];
+
+function selectAnswer(selectedBtn) {
+
+    // 配列に選択されたボタンのtextを追加
+    answersValueArray.push(selectedBtn);
+
+    // まだ残りの質問があるかチェック
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++
+        resetState()
+        countQuestions()
+        showQuestion()
+        showResult();
+    } else {
+        flag = true;
+        removeCountQuestion()
+        showConfirm()
+    }
+}
+
+// ------------------------------[⑤確認画面の表示]---------------------------------------------------
+
+function showConfirm(){
+    confirmContainer.classList.remove("hide");
+    questionContainer.classList.add('hide');
+    createConfirmContainer()
+}
+
+// ------------------------------[⑥結果の表示/ 画像作成]---------------------------------------------------
+
+const scoreElement = document.getElementById('score')
+const confirmBtn = document.getElementById("confirm-btn");
+
+confirmBtn.addEventListener("click",showResult);
+
+function showResult() {
+
+   let maxIndex = calMaxIdx()
+
+    // 現在の画像を削除
+    resetImage();
+
+    // 新規画像を作成
+    createImage(results[maxIndex]["img"])
+
+    // 全ての回答を終えた場合のみ実行
+    if(flag === true){
+        confirmContainer.classList.add('hide');
+        resultContainer.classList.remove('hide');
+        scoreElement.innerText = results[maxIndex]["name"];
+    }
+
+}
+
+// ------------------------------[⑦リスタート]---------------------------------------------------
+
+const restartButton = document.getElementById('restart-btn')
+
+// もう一度診断するのボタンをクリック
+restartButton.addEventListener('click', () => {
+    resultContainer.classList.add('hide')
+    startButton.parentNode.classList.remove('hide')
+    currentQuestionIndex = 0;
+    answersValueArray =[];
+    flag = false;
+    resetState();
+    resetConfirm();
+    resetImage();
+    createImage('/img/box.jpg');
+})
+
+// -----------------------[スコア計算]-------------------------
+function calMaxIdx(){
+    let maxCount = 0; // 最大のincludes()カウント
+    let maxIndex = null; // 最大のincludes()カウントが見つかったインデックス
+
+    for (let i = 0; i < results.length; i++) {
+        let count = 0; // includes()が真に評価された回数をカウントする変数
+
+        // includes()のカウントを計算
+        for (let b = 0; b < answersValueArray.length; b++) {
+            if (results[i]["attributes"].includes(answersValueArray[b])) {
+                count++; // includes()が真に評価されたらカウントを増やす
+            }
+        }
+
+        // プライオリティの計算
+        count += results[i]["priority"];
+
+        // より大きいカウントが見つかった場合は更新
+        if (count > maxCount) {
+            maxCount = count;
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+// --------------------------[作成]-------------------------------
+
+// 選択肢作成
+function createOptions(){
+    let optionsArray = questions[currentQuestionIndex]["answer"]
+
+    // 設問
+    optionsArray.forEach((value,idx) => {
+        // ボタンタグを生成して、設問を挿入
+        const button = document.createElement('button')
+        const div = document.createElement('div')
+        const num = document.createElement('span')
+        const text = document.createElement('span')
+        const arrow = document.createElement('span')
+        num.innerText = idx+1;
+        num.classList.add("rounded-circle")
+        text.innerText = value;
+        arrow.innerText = "▶";
+        div.appendChild(num);
+        div.appendChild(text)
+        button.appendChild(div)
+        button.appendChild(arrow);
+        button.classList.add("option-btn")
+        answerButtonsElement.appendChild(button)
+
+        // 選択肢をクリックをする
+        button.addEventListener('click', ()=>{
+            selectAnswer(value);
+        })
+    })
+}
+
+// 選択内容確認画面
+function createConfirmContainer(){
+    for(let i=0;i<questions.length;i++){
+        const container = document.createElement('div')
+        const answerDiv = document.createElement('div')
+        const num = document.createElement('span')
+        const text = document.createElement('span')
+        const question = document.createElement("p");
+        num.innerText = i+1;
+        num.classList.add("rounded-circle")
+        text.innerText = answersValueArray[i];
+        answerDiv.appendChild(num);
+        answerDiv.appendChild(text)
+        answerDiv.classList.add("confirm-div");
+        question.innerText = "【"+(i+1)+"問目】"+questions[i]["question"];
+        container.appendChild(question);
+        container.appendChild(answerDiv)
+        reconfirm.appendChild(container);
+    }
+}
+
+// 質問横の画像作成
+function createImage(imgSrc){
+    let newImage = document.createElement("img");
+    newImage.src = imgSrc;
+    newImage.style.width = 100+"%";
+    newImage.style.height = 100+"%";
+    imgContainer.appendChild(newImage)
+}
+
+// ------------------------------[リセット]---------------------------------------------------
+
+// 現在表示している質問を全て削除し、新規で質問作成
+function resetState() {
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    }
+}
+
+// おすすめ画像を削除
+function resetImage(){
+    while(imgContainer.firstChild){
+        imgContainer.removeChild(imgContainer.firstChild);
+    }
+}
+
+// 選択内容確認画面のdivをリセット時に消去
+function resetConfirm() {
+    while (reconfirm.firstChild) {
+        reconfirm.removeChild(reconfirm.firstChild)
+    }
+}
+
+
