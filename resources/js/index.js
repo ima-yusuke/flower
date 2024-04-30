@@ -88,7 +88,7 @@ function showConfirm(){
 
 // ------------------------------[⑥結果の表示/ 画像作成]---------------------------------------------------
 
-const scoreElement = document.getElementById('score')
+const selectedFlower = document.getElementById('flower-name')
 const confirmBtn = document.getElementById("confirm-btn");
 
 confirmBtn.addEventListener("click",showResult);
@@ -101,15 +101,16 @@ function showResult() {
     resetImage();
 
     // 新規画像を作成
-    createImage(results[maxIndex]["img"])
+    createImage(products[maxIndex]["img"])
 
     // 全ての回答を終えた場合のみ実行
     if(flag === true){
         confirmContainer.classList.add('hide');
         resultContainer.classList.remove('hide');
-        scoreElement.innerText = results[maxIndex]["name"];
-    }
 
+        // 結果画面詳細作成
+        createResult(maxIndex)
+    }
 }
 
 // ------------------------------[⑦リスタート]---------------------------------------------------
@@ -134,18 +135,18 @@ function calMaxIdx(){
     let maxCount = 0; // 最大のincludes()カウント
     let maxIndex = null; // 最大のincludes()カウントが見つかったインデックス
 
-    for (let i = 0; i < results.length; i++) {
+    for (let i = 0; i < products.length; i++) {
         let count = 0; // includes()が真に評価された回数をカウントする変数
 
         // includes()のカウントを計算
         for (let b = 0; b < answersValueArray.length; b++) {
-            if (results[i]["attributes"].includes(answersValueArray[b])) {
+            if (products[i]["attributes"].includes(answersValueArray[b])) {
                 count++; // includes()が真に評価されたらカウントを増やす
             }
         }
 
         // プライオリティの計算
-        count += results[i]["priority"];
+        count += products[i]["priority"];
 
         // より大きいカウントが見つかった場合は更新
         if (count > maxCount) {
@@ -216,6 +217,21 @@ function createImage(imgSrc){
     newImage.style.width = 100+"%";
     newImage.style.height = 100+"%";
     imgContainer.appendChild(newImage)
+}
+
+function createResult(maxIndex){
+    let span = document.createElement("span");
+    span.innerText = products[maxIndex]["name"];
+    span.classList.add("span-bg");
+    selectedFlower.innerHTML = "あなたにおすすめなのは";
+    selectedFlower.appendChild(span);
+    selectedFlower.innerHTML += "です!";
+
+    let selectedImg = document.getElementById("selectedImg");
+    selectedImg.src = products[maxIndex]["img"];
+
+    let detail = document.getElementById("detail");
+    detail.innerText = "特徴："+products[maxIndex]["detail"];
 }
 
 // ------------------------------[リセット]---------------------------------------------------

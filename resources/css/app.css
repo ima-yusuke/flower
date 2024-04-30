@@ -23,7 +23,7 @@
 .btn {
     background-color: rgb(254,135,185);
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     color: white;
     cursor: pointer;
     font-size: 1rem;
@@ -31,6 +31,21 @@
     padding: 0.5rem 1rem;
     text-align: center;
     text-decoration: none;
+    width: 250px;
+}
+
+.btn-white {
+    background-color:white;
+    border: 1px solid black;
+    border-radius: 8px;
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;
 }
 button {
     /* background-color: #4caf50; */
@@ -95,7 +110,6 @@ button {
     border-radius: 4px;
 }
 
-
 .rounded-circle {
     display: inline-flex; /* flexコンテナとして表示 */
     justify-content: center; /* 横方向に中央揃え */
@@ -106,4 +120,12 @@ button {
     border: 2px solid black;
     margin-right: 10px;
     font-size: 20px;
+}
+
+.span-bg{
+    background-color: rgb(254,135,185);
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 0 4px;
 }
