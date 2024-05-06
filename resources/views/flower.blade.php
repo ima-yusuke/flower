@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="flex flex-col justify-center items-center w-full min-h-screen">
+    <div class="bg-main-bg flex flex-col justify-center items-center w-full min-h-screen">
         {{--開始画面--}}
         <div id="start" class="start">
             <h1>おすすめ商品診断</h1>
@@ -30,9 +30,9 @@
         </div>
 
         {{--確認画面--}}
-        <div id="confirm" class="confirm hide">
-            <h1 class="font-bold text-xl text-center mb-4">回答内容は以下でよろしいですか？</h1>
-            <div id="reconfirm" class="flex flex-col gap-4"></div>
+        <div id="confirm" class="confirm hide gap-6 pt-10">
+            <h1 class="font-bold text-2xl text-center mb-4 text-confirm-bg">以下の回答内容でよろしいですか？</h1>
+            <div id="reconfirm" class="flex flex-col gap-6 bg-confirm-bg px-24 py-8 rounded-2xl"></div>
             <button class="btn" id="confirm-btn">診断結果を見る</button>
         </div>
 

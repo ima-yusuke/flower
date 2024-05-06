@@ -16,7 +16,9 @@ export default {
             },
             colors:{
                 "top-white":"rgb(248,248,248)",
-                "top-button-pink":"rgb(254,135,185)"
+                "top-button-pink":"rgb(254,135,185)",
+                "main-bg":"rgb(237,230,215)",
+                "confirm-bg":"rgb(191,158,116)",
             }
         },
     },

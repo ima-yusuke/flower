@@ -193,19 +193,32 @@ function createOptions(){
 function createConfirmContainer(){
     for(let i=0;i<questions.length;i++){
         const container = document.createElement('div')
+        const answerContainer = document.createElement('div')
         const answerDiv = document.createElement('div')
+        const arrowIcon = document.createElement("p");
         const num = document.createElement('span')
         const text = document.createElement('span')
         const question = document.createElement("p");
+        const questionNum = document.createElement("span");
+        // 選択した回答
         num.innerText = i+1;
         num.classList.add("rounded-circle")
         text.innerText = answersValueArray[i];
         answerDiv.appendChild(num);
         answerDiv.appendChild(text)
-        answerDiv.classList.add("confirm-div");
-        question.innerText = "【"+(i+1)+"問目】"+questions[i]["question"];
+        arrowIcon.innerText = "▶"
+        answerContainer.classList.add("confirm-answer");
+        answerContainer.appendChild(answerDiv)
+        answerContainer.appendChild(arrowIcon);
+        // 質問文と番号
+        questionNum.innerText = i+1+"問目";
+        questionNum.classList.add("confirm-span");
+        question.innerText = questions[i]["question"];
+        question.insertBefore(questionNum,question.firstChild)
+        // コンテイナーに追加
         container.appendChild(question);
-        container.appendChild(answerDiv)
+        container.appendChild(answerContainer)
+        container.classList.add("confirm-container")
         reconfirm.appendChild(container);
     }
 }

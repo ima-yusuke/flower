@@ -97,29 +97,61 @@ button {
     padding-right: 16px;
 }
 
-.confirm-div{
-    width: 500px;
-    background-color:white; /* 背景色を適宜指定 */
-    border: 2px solid black;
+/*各質問・回答セット*/
+.confirm-container{
     display: flex;
-    justify-content:start;
-    align-items: center;
-    text-align: left;
-    padding: 5px 16px;
-    margin-top: 5px;
-    border-radius: 4px;
+    flex-direction: column;
+    row-gap: 15px;
 }
 
+/*各質問*/
+.confirm-container p{
+    color: white;
+    font-size: 16px;
+}
+
+/*各質問番号*/
+.confirm-span{
+    background-color: white;
+    color:rgb(191,158,116);
+    margin-right: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/*各回答*/
+.confirm-answer{
+    width: 450px;
+    background-color:white; /* 背景色を適宜指定 */
+    color:rgb(191,158,116);
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    text-align: left;
+    padding: 6px 10px;
+    margin-top: 5px;
+    border-radius: 20px;
+}
+
+/*▶アイコン*/
+.confirm-answer p{
+    color:rgb(191,158,116);
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+/*各回答番号*/
 .rounded-circle {
     display: inline-flex; /* flexコンテナとして表示 */
     justify-content: center; /* 横方向に中央揃え */
     align-items: center; /* 縦方向に中央揃え */
-    width: 30px; /* サイズを適宜調整 */
-    height: 30px; /* サイズを適宜調整 */
+    width: 25px; /* サイズを適宜調整 */
+    height: 25px; /* サイズを適宜調整 */
     border-radius: 50%; /* 丸くする */
-    border: 2px solid black;
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 14px;
+    background-color: rgb(191,158,116);
+    color: white;
 }
 
 .span-bg{
@@ -130,7 +162,7 @@ button {
     margin: 0 4px;
 }
 
-/*=================[dash 登録ボタン]===============-*/
+/*=================[管理画面 登録ボタン]===============-*/
 .btn-border {
     border: 2px solid #000;
     border-radius: 0;
