@@ -18,6 +18,13 @@ class FlowerController extends Controller
         ["id" => 4, "question" => "いつ渡す？","answer"=>["誕生日","クリスマス","卒業式","その他"],"order"=>4]
     ];
 
+    public $p_data =[
+        ["id" => 1, "name" => "ひまわり","text"=>"aaaaaaaaaaaa"],
+        ["id" => 2, "name" => "バラ","text"=>"bbbbbbbbbb"],
+        ["id" => 3, "name" => "チューリップ","text"=>"cccccccccc"],
+        ["id" => 4, "name" => "アサガオ","text"=>"ddddddddddddd"]
+    ];
+
     //
     public function show_question_page()
     {
@@ -27,7 +34,7 @@ class FlowerController extends Controller
 
     public function show_register_product()
     {
-        $data = $this->data;
+        $data = $this->p_data;
         return view("dash-register-product",compact("data"));
     }
 
