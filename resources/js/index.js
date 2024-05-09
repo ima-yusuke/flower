@@ -1,3 +1,5 @@
+import "flowbite";
+
 const questionContainer = document.getElementById('quiz')
 const resultContainer = document.getElementById('result')
 const confirmContainer = document.getElementById("confirm");
@@ -88,7 +90,6 @@ function showConfirm(){
 
 // ------------------------------[⑥結果の表示/ 画像作成]---------------------------------------------------
 
-const selectedFlower = document.getElementById('flower-name')
 const confirmBtn = document.getElementById("confirm-btn");
 
 confirmBtn.addEventListener("click",showResult);
@@ -233,18 +234,14 @@ function createImage(imgSrc){
 }
 
 function createResult(maxIndex){
-    let span = document.createElement("span");
+    let span = document.getElementsByClassName("p_name")[0];
     span.innerText = products[maxIndex]["name"];
-    span.classList.add("span-bg");
-    selectedFlower.innerHTML = "あなたにおすすめなのは";
-    selectedFlower.appendChild(span);
-    selectedFlower.innerHTML += "です!";
 
     let selectedImg = document.getElementById("selectedImg");
     selectedImg.src = products[maxIndex]["img"];
 
-    let detail = document.getElementById("detail");
-    detail.innerText = "特徴："+products[maxIndex]["detail"];
+    let detail = document.getElementsByClassName("p_detail")[0];
+    detail.innerText = products[maxIndex]["detail"];
 }
 
 // ------------------------------[リセット]---------------------------------------------------

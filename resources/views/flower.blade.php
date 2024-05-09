@@ -38,7 +38,6 @@
 
         {{--結果画面--}}
         <div id="result" class="result hide flex flex-col justify-center items-center gap-8">
-            <p id="flower-name" class="font-bold text-xl"></p>
             <div class="flex gap-10 w-[70%]">
                 {{--左側画像--}}
                 <img id="selectedImg" style="height: 450px; width: 350px" class="object-cover">
@@ -46,8 +45,23 @@
 
                 {{--右側詳細--}}
                 <div class="flex flex-col justify-center items-center gap-4 w-[60%]">
-                    <div id="detail">
+                    <div id="detail" class="flex flex-col gap-8">
+                        {{--タイトル--}}
+                        <div class="font-bold flex flex-col gap-2">
+                            <p>あなたにおすすめなのは</p>
+                            <aside class="flex items-center">
+                                <h2 class="text-4xl">商品名<span class="p_name"></span></h2>
+                                <p>です！</p>
+                            </aside>
+                        </div>
 
+                        {{--詳細--}}
+                        <p class="p_detail"></p>
+
+                        {{--項目--}}
+                        <aside>
+
+                        </aside>
                     </div>
                     <aside class="flex gap-4">
                         <button id="restart-btn" class="btn-white">初めからやり直す</button>

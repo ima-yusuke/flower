@@ -26,7 +26,7 @@
                 </a>
             </div>
             <div class="flex flex-col justify-center items-center shadow-xl text-center border-4 border-solid border-black bg-white w-[30%]">
-                <a href="{{route("show_home")}}" class="w-full h-full hover:bg-black hover:text-white p-3">
+                <a href="{{route("show_register_question")}}" class="w-full h-full hover:bg-black hover:text-white p-3">
                     <div class="flex flex-col gap-2">
                         <p><i class="fa-solid fa-users text-4xl"></i></p>
                         <p class="font-bold">Q＆A設定</p>

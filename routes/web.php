@@ -14,9 +14,10 @@ Route::get('/', [FlowerController::class, 'show_home'])->name('show_home');
 //花診断ページ
 Route::get('/find_your_flower', [FlowerController::class, 'show_question_page'])->name('show_flower');
 
-//管理画面/質問
+//管理画面/商品登録
 Route::get('/dashboard/register_product', [FlowerController::class, 'show_register_product'])->name('show_register_product');
-
+//管理画面/Q&A設定
+Route::get('/dashboard/register_question', [FlowerController::class, 'show_register_question'])->name('show_register_question');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
