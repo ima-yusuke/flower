@@ -8,8 +8,9 @@
                         <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$value["name"]}}</p>
                     </div>
                     <aside>
-                        <a class="deleteBtn font-medium text-blue-600 hover:underline mr-4">削除</a>
-                        <a class="editBtn font-medium text-blue-600 hover:underline">編集</a>
+                        <a class="editBtn font-medium text-blue-600 hover:underline mr-4">編集</a>
+                        <a class="font-medium text-blue-600 hover:underline mr-4">商品詳細編集</a>
+                        <a class="deleteBtn font-medium text-blue-600 hover:underline">削除</a>
                     </aside>
                 </div>
 

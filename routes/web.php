@@ -20,6 +20,9 @@ Route::get('/dashboard/register_product', [FlowerController::class, 'show_regist
 Route::get('/dashboard/register_question', [FlowerController::class, 'show_register_question'])->name('show_register_question');
 //管理画面/リンク設定
 Route::get('/dashboard/register_link', [FlowerController::class, 'show_register_link'])->name('show_register_link');
+//管理画面/属性追加
+Route::get('/dashboard/add_attribute', [FlowerController::class, 'show_add_attribute'])->name('show_add_attribute');
+
 
 
 Route::get('/dashboard', function () {
