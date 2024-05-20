@@ -1,40 +1,39 @@
 <x-app-layout>
-    <div class="flex flex-col items-center w-full">
-
-        <div id="accordion-collapse" data-accordion="collapse" class="w-[80%]">
-            @foreach($data as $idx=>$value)
-                {{--アコーディオン開くためのボタン--}}
-                <div id="accordion-collapse-heading-{{$idx+1}}" class="flex justify-between">
-                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{$idx+1}}" aria-expanded="false" aria-controls="accordion-collapse-body-{{$idx+1}}">
-                        <span>{{$value['name']}}</span>
-                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                        </svg>
-                    </button>
-                    <button>削除</button>
-                </div>
-
-                {{--アコーディオン開いたとき表示される箇所--}}
-                <div id="accordion-collapse-body-{{$idx+1}}" class="hidden" aria-labelledby="accordion-collapse-heading-{{$idx+1}}">
-                    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                        <p class="text-gray-500">{{$value['text']}}</p>
+    <div class="flex flex-col items-center w-full py-12">
+        @foreach($data as $idx=>$value)
+            <div class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0">
+                {{-- 質問 --}}
+                <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
+                    <div>
+                        <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$value["name"]}}</p>
                     </div>
+                    <aside>
+                        <a class="deleteBtn font-medium text-blue-600 hover:underline mr-4">削除</a>
+                        <a class="editBtn font-medium text-blue-600 hover:underline">編集</a>
+                    </aside>
                 </div>
-            @endforeach
 
-            {{--新規追加用 (アコーディオン開くためのボタン)--}}
-            <div id="accordion-collapse-heading-{{count($data)+1}}" class="flex justify-between">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{count($data)+1}}" aria-expanded="false" aria-controls="accordion-collapse-body-{{count($data)+1}}">
-                    <span>新規商品の追加</span>
-                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                    </svg>
-                </button>
+                {{-- 回答（最初非表示） --}}
+                <div class="qa__body">
+                    <p>{{$value["text"]}}</p>
+                </div>
             </div>
+        @endforeach
+            <div class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0">
+                 {{-- 新規質問 --}}
+                <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
+                    <div>
+                        <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">
+                            <span class="bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-8">New</span>新規商品の追加
+                        </p>
+                    </div>
+                    <aside>
+                        <a class="editBtn font-medium text-blue-600 hover:underline">追加</a>
+                    </aside>
+                </div>
 
-            {{--新規追加用 (アコーディオン開いたとき表示される箇所)--}}
-            <div id="accordion-collapse-body-{{count($data)+1}}" class="hidden" aria-labelledby="accordion-collapse-heading-{{count($data)+1}}">
-                <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                {{--新規回答フォーム（最初非表示）--}}
+                <div class="qa__body">
                     <form class="Form flex flex-col gap-8" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
                         @csrf
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -63,6 +62,6 @@
                     </form>
                 </div>
             </div>
-        </div>
+
     </div>
 </x-app-layout>

@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/index.js',
                 'resources/js/sortable.js',
+                'resources/js/accordion.js',
             ],
             refresh: true,
         }),
