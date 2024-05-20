@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center w-full py-12">
         @foreach($data as $idx=>$value)
             <div class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0">
-                {{-- 質問 --}}
+                {{-- 既存商品名 --}}
                 <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
                     <div>
                         <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$value["name"]}}</p>
@@ -14,14 +14,37 @@
                     </aside>
                 </div>
 
-                {{-- 回答（最初非表示） --}}
-                <div class="qa__body">
-                    <p>{{$value["text"]}}</p>
+                {{-- 既存商品詳細（最初非表示） --}}
+                <div class="qa__body flex flex-wrap gap-8 w-[80%]">
+                    <div>
+                        <label>商品名：
+                            <input name="name" value="{{$value["name"]}}">
+                        </label>
+                    </div>
+                    <div>
+                        <label>プライオリティ：
+                            <input name="priority" value="1">
+                        </label>
+                    </div>
+                    <div>
+                        <label>表示・非表示：
+                            <input name="isEnabled" value="1">
+                        </label>
+                    </div>
+                    <br>
+                   <div>
+                       <label>商品画像：
+                           <img src="{{ asset("/img/flower01.jpeg") }}" width="100px">
+                       </label>
+                   </div>
+                    <div>
+                        <button class="border border-solid border-black">更新</button>
+                    </div>
                 </div>
             </div>
         @endforeach
             <div class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0">
-                 {{-- 新規質問 --}}
+                 {{-- 新規商品 --}}
                 <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
                     <div>
                         <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">
@@ -33,7 +56,7 @@
                     </aside>
                 </div>
 
-                {{--新規回答フォーム（最初非表示）--}}
+                {{--新規商品詳細登録フォーム（最初非表示）--}}
                 <div class="qa__body">
                     <form class="Form flex flex-col gap-8" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
                         @csrf

@@ -22,6 +22,8 @@ Route::get('/dashboard/register_question', [FlowerController::class, 'show_regis
 Route::get('/dashboard/register_link', [FlowerController::class, 'show_register_link'])->name('show_register_link');
 //管理画面/属性追加
 Route::get('/dashboard/add_attribute', [FlowerController::class, 'show_add_attribute'])->name('show_add_attribute');
+//管理画面/回答属性付与
+Route::get('/dashboard/register_answer_attribute', [FlowerController::class, 'show_answer_attribute'])->name('show_answer_attribute');
 
 
 
