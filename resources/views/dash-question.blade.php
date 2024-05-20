@@ -16,7 +16,12 @@
                 {{-- 回答（最初非表示） --}}
                 <div class="qa__body answer_sortable">
                     @foreach($value["answer"] as $val)
-                        <p class="border border-solid border-gray-200">{{$val}}</p>
+                        <aside class="flex justify-between items-center border border-solid border-gray-200">
+                            <p >{{$val}}</p>
+                            <div>
+                                <button class="border border-solid border-black">削除or非表示?</button>
+                            </div>
+                        </aside>
                     @endforeach
                 </div>
             </li>

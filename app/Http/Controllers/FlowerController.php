@@ -35,12 +35,18 @@ class FlowerController extends Controller
     public function show_register_product()
     {
         $data = $this->p_data;
-        return view("dash-register-product",compact("data"));
+        return view("dash-product",compact("data"));
     }
 
     public function show_register_question()
     {
         $data = $this->data;
         return view("dash-question",compact("data"));
+    }
+
+    public function show_register_link()
+    {
+        $data = $this->p_data;
+        return view("dash-link",compact("data"));
     }
 }
