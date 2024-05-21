@@ -38,7 +38,6 @@ function onSortEvent(e){
 // --------------------------------[回答並び替え]-------------------------------------------------
 
 let questions = document.getElementsByClassName("qa__item");
-let editBtns = document.getElementsByClassName("editBtn");
 
 for (let i=0;i<questions.length;i++){
     const elem = document.getElementsByClassName("answer_sortable");

@@ -15,29 +15,39 @@
                 </div>
 
                 {{-- 既存商品詳細（最初非表示） --}}
-                <div class="qa__body flex flex-wrap gap-8 w-[80%]">
-                    <div>
-                        <label>商品名：
-                            <input name="name" value="{{$value["name"]}}">
-                        </label>
+                <div class="qa__body flex flex-col">
+                    <div class="flex items-center border-y border-solid border-gray-200 py-4">
+                        <p class="w-[250px]">1.商品画像の設定</p>
+                        <div class="flex gap-16">
+                            <aside class="flex flex-col items-center gap-2">
+                                <p>【現在の画像】</p>
+                                <img src="{{ asset("/img/flower01.jpeg") }}" width="100px">
+                            </aside>
+                           <aside class="flex flex-col gap-2">
+                               <p>【新しい画像】</p>
+                               <input type="file">
+                           </aside>
+                        </div>
                     </div>
-                    <div>
-                        <label>プライオリティ：
-                            <input name="priority" value="1">
-                        </label>
+                    <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                        <p class="w-[250px]">2.商品名</p>
+                        <div class="flex-1">
+                            <input name="name" value="{{$value['name']}}" class="w-full border border-solid border-gray-400 rounded-md">
+                        </div>
                     </div>
-                    <div>
-                        <label>表示・非表示：
-                            <input name="isEnabled" value="1">
-                        </label>
+                    <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                        <p class="w-[250px]">3.プライオリティ</p>
+                        <div class="flex-1">
+                            <input name="priority" value="1" class="w-full border border-solid border-gray-400 rounded-md">
+                        </div>
                     </div>
-                    <br>
-                   <div>
-                       <label>商品画像：
-                           <img src="{{ asset("/img/flower01.jpeg") }}" width="100px">
-                       </label>
-                   </div>
-                    <div>
+                    <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                        <p class="w-[250px]">4.表示・非表示</p>
+                        <div class="flex-1">
+                            <input name="isEnabled" value="1" class="w-full border border-solid border-gray-400 rounded-md">
+                        </div>
+                    </div>
+                    <div class="mt-4">
                         <button class="border border-solid border-black">更新</button>
                     </div>
                 </div>
