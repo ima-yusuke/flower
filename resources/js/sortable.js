@@ -29,8 +29,13 @@ function onChangeEvent(e){
 function onSortEvent(e){
     console.log("onSort!!");
     // 3, 並び替え後のエレメントを確認
-    const items = e.target.querySelectorAll("li");
+    const items = e.target.querySelectorAll("li div.qa__head div p");
     for(let i=0; i<items.length; i++){
+            let str = items[i].innerHTML;
+            // 旧番号と"."を削除
+            items[i].innerHTML = str.slice( 2 )
+            // 並び替えた最新の番号を書き込み
+            items[i].innerHTML = `${i+1}. ${items[i].innerHTML}`;
         console.log(items[i].getAttribute("id"));
     }
 }
@@ -53,9 +58,14 @@ for (let i=0;i<questions.length;i++){
 function onSortEventAnswer(e){
     console.log("onSort!!");
     // 3, 並び替え後のエレメントを確認
-    const items = e.target.querySelectorAll("aside");
+    const items = e.target.querySelectorAll("aside p");
     console.log(items)
     for(let i=0; i<items.length; i++){
+        let str = items[i].innerHTML;
+        // 旧番号と"."を削除
+        items[i].innerHTML = str.slice( 2 )
+        // 並び替えた最新の番号を書き込み
+        items[i].innerHTML = `${i+1}. ${items[i].innerHTML}`;
         console.log(items[i].getAttribute("id"));
     }
 }

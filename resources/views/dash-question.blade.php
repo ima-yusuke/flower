@@ -5,7 +5,7 @@
                 {{-- 質問 --}}
                 <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
                     <div>
-                        <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$value["question"]}}</p>
+                        <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$idx+1}}.{{$value["question"]}}</p>
                     </div>
                     <aside>
                         <a class="editBtn font-medium text-blue-600 hover:underline mr-4">編集</a>
@@ -18,7 +18,7 @@
                     <div class="answer_sortable">
                         @foreach($value["answer"] as $key=>$val)
                             <aside id="{{$key}}" class="flex justify-between items-center border border-solid border-gray-200">
-                                <p >{{$val}}</p>
+                                <p >{{$key+1}}.{{$val}}</p>
                                 <div>
                                     <button class="border border-solid border-black">削除or非表示?</button>
                                 </div>
