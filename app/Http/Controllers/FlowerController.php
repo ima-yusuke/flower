@@ -16,7 +16,7 @@ class FlowerController extends Controller
 
     //質問・回等データ
     public $data =[
-        ["id" => 1, "question" => "どんな雰囲気？","answer"=>["シック","モダン","暗め","明るめ"],"order"=>1],
+        ["id" => 1, "question" => "どんな雰囲気？","answer"=>["シック","モダン","暗め","明るめ","その他"],"order"=>1],
         ["id" => 2, "question" => "誰に渡す？","answer"=>["自分","友人","家族","恋人","その他"],"order"=>2],
         ["id" => 3, "question" => "いつ渡す？","answer"=>["誕生日","クリスマス","卒業式","その他"],"order"=>3]
     ];

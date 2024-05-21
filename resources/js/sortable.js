@@ -53,11 +53,10 @@ for (let i=0;i<questions.length;i++){
     })
 }
 
-
 function onSortEventAnswer(e){
     console.log("onSort!!");
     // 3, 並び替え後のエレメントを確認
-    const items = e.target.querySelectorAll("p");
+    const items = e.target.querySelectorAll("aside");
     console.log(items)
     for(let i=0; i<items.length; i++){
         console.log(items[i].getAttribute("id"));

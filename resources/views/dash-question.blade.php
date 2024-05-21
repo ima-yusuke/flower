@@ -1,7 +1,7 @@
 <x-app-layout>
     <div id="my_sortable" class="flex flex-col items-center w-full pt-12">
         @foreach($data as $idx=>$value)
-            <li class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0 list-none">
+            <li id="{{$idx}}" class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0 list-none">
                 {{-- 質問 --}}
                 <div class="qa__head js-ac flex items-center justify-between gap-4 py-6 px-2 ml-4">
                     <div>
@@ -16,8 +16,8 @@
                 {{-- 回答（最初非表示） --}}
                 <div class="qa__body">
                     <div class="answer_sortable">
-                        @foreach($value["answer"] as $val)
-                            <aside class="flex justify-between items-center border border-solid border-gray-200">
+                        @foreach($value["answer"] as $key=>$val)
+                            <aside id="{{$key}}" class="flex justify-between items-center border border-solid border-gray-200">
                                 <p >{{$val}}</p>
                                 <div>
                                     <button class="border border-solid border-black">削除or非表示?</button>
