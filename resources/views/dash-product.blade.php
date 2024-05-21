@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <div class="flex flex-col items-center w-full py-12">
         @foreach($data as $idx=>$value)
             <div class="qa__item bg-white border border-solid border-gray-200 w-[80%] shrink-0">
@@ -38,14 +39,21 @@
                     <div class="flex items-center border-b border-solid border-gray-200 py-4">
                         <p class="w-[250px]">3.プライオリティ</p>
                         <div class="flex-1">
-                            <input name="priority" value="1" class="w-full border border-solid border-gray-400 rounded-md">
+                            <select name="priority" class="w-full border border-solid border-gray-400 rounded-md">
+                                <option value="0">優先度：低</option>
+                                <option value="1">優先度：中</option>
+                                <option value="2">優先度：高</option>
+                            </select>
                         </div>
                     </div>
                     <div class="flex items-center border-b border-solid border-gray-200 py-4">
                         <p class="w-[250px]">4.表示・非表示</p>
-                        <div class="flex-1">
-                            <input name="isEnabled" value="1" class="w-full border border-solid border-gray-400 rounded-md">
-                        </div>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 mr-2">非表示</span>
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">表示</span>
+                        </label>
                     </div>
                     <div class="mt-4">
                         <button class="border border-solid border-black">更新</button>
