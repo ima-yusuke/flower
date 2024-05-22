@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/index.js'])
 </head>
-<body class="max-h-screen">
+<body class="max-h-screen overflow-hidden">
     <!-- header Content -->
     <header class="fixed h-[80px] w-full bg-gray-200 flex items-center pl-4">
         <div id="header" class="flex justify-between w-full pr-8">

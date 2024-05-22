@@ -5,26 +5,22 @@ const resultContainer = document.getElementById('result')
 const confirmContainer = document.getElementById("confirm");
 const reconfirm = document.getElementById("reconfirm");
 const imgContainer = document.getElementById("tmpImg");
-
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
 let currentQuestionIndex = 0;
-let flag = false;
 
 // ------------------------------[①質問開始]---------------------------------------------------
-
-const startButton = document.getElementById('start-btn')
-
-startButton.addEventListener('click', () => {
-    startQuiz();
-})
-
 function startQuiz() {
-    let startDiv = startButton.parentNode;
-    startDiv.classList.add('hide')
+    // let startDiv = startButton.parentNode;
+    // startDiv.classList.add('hide')
     resultContainer.classList.add('hide')
     questionContainer.classList.remove('hide')
     showQuestion()
     countQuestions()
 }
+
+startQuiz()
+
 // ------------------------------[②残り質問数計算＆表示 / 削除]---------------------------------------------------
 function countQuestions(){
     removeCountQuestion();
@@ -46,9 +42,6 @@ function removeCountQuestion(){
 
 // ------------------------------[③質問&回答作成]---------------------------------------------------
 
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
-
 function showQuestion() {
 
     // 質問作成
@@ -67,14 +60,13 @@ function selectAnswer(selectedBtn) {
     answersValueArray.push(selectedBtn);
 
     // まだ残りの質問があるかチェック
-    if (currentQuestionIndex < questions.length - 1) {
+    if (questions.length !== answersValueArray.length ) {
         currentQuestionIndex++
         resetState()
         countQuestions()
         showQuestion()
         showResult();
     } else {
-        flag = true;
         removeCountQuestion()
         showConfirm()
     }
@@ -105,7 +97,7 @@ function showResult() {
     createImage(products[maxIndex]["img"])
 
     // 全ての回答を終えた場合のみ実行
-    if(flag === true){
+    if(questions.length === answersValueArray.length){
         confirmContainer.classList.add('hide');
         resultContainer.classList.remove('hide');
 
@@ -113,23 +105,6 @@ function showResult() {
         createResult(maxIndex)
     }
 }
-
-// ------------------------------[⑦リスタート]---------------------------------------------------
-
-const restartButton = document.getElementById('restart-btn')
-
-// もう一度診断するのボタンをクリック
-restartButton.addEventListener('click', () => {
-    resultContainer.classList.add('hide')
-    startButton.parentNode.classList.remove('hide')
-    currentQuestionIndex = 0;
-    answersValueArray =[];
-    flag = false;
-    resetState();
-    resetConfirm();
-    resetImage();
-    createImage('/img/box.jpg');
-})
 
 // -----------------------[スコア計算]-------------------------
 function calMaxIdx(){
@@ -228,8 +203,7 @@ function createConfirmContainer(){
 function createImage(imgSrc){
     let newImage = document.createElement("img");
     newImage.src = imgSrc;
-    newImage.style.width = 100+"%";
-    newImage.style.height = 100+"%";
+    newImage.classList.add("tmp-img")
     imgContainer.appendChild(newImage)
 }
 
@@ -260,11 +234,6 @@ function resetImage(){
     }
 }
 
-// 選択内容確認画面のdivをリセット時に消去
-function resetConfirm() {
-    while (reconfirm.firstChild) {
-        reconfirm.removeChild(reconfirm.firstChild)
-    }
-}
+
 
 

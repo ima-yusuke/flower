@@ -20,6 +20,7 @@ export default {
                 "top-button-pink":"rgb(254,135,185)",
                 "main-bg":"rgb(237,230,215)",
                 "confirm-bg":"rgb(191,158,116)",
+                "result-ball":"rgb(191,158,116)"
             }
         },
     },

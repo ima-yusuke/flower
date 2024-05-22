@@ -1,24 +1,11 @@
 <x-layout>
     <div class="bg-main-bg flex flex-col justify-center items-center w-full min-h-screen">
-        {{--開始画面--}}
-        <div id="start" class="start">
-            <h1>おすすめ商品診断</h1>
-            <button id="start-btn" class="btn">スタート</button>
-{{--            <button class="option-btn">--}}
-{{--                <div>--}}
-{{--                    <span class="rounded-circle">1</span>--}}
-{{--                    <span>好きな色は？</span>--}}
-{{--                </div>--}}
-{{--                <span>▶</span>--}}
-{{--            </button>--}}
-        </div>
-
         {{--質問画面--}}
         <div id="quiz" class="quiz hide">
             <div class="flex justify-center items-center gap-10 h-full mt-[80px]">
                 {{--左側コンテンツ（画像）--}}
-                <div style="width: 450px; height: 450px;" id="tmpImg">
-                    <img src="{{ asset("/img/box.jpg") }}" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="width: 450px; height: 450px;" id="tmpImg" >
+                    <img src="{{ asset("/img/box.jpg") }}" style="width: 100%; height: 100%; object-fit: cover;" class="rounded-3xl">
                 </div>
 
                 {{--右側コンテンツ（質問＆選択肢）--}}
@@ -37,14 +24,16 @@
         </div>
 
         {{--結果画面--}}
-        <div id="result" class="result hide flex flex-col justify-center items-center gap-8">
-            <div class="flex gap-10 w-[70%]">
-                {{--左側画像--}}
-                <img id="selectedImg" style="height: 450px; width: 350px" class="object-cover">
+        <div id="result" class="result hide flex justify-between items-center gap-8 w-full">
+            <div class="flex justify-between">
+                <div class="absolute -bottom-48 -left-24 w-[800px] h-[800px] bg-result-ball rounded-full">
+                    <img id="selectedImg" class="object-cover absolute left-1/3 top-1/4 transform translate-x-20 -translate-y-56 z-10 rounded-full w-[400px] h-[400px]">
+                </div>
+                <div class="w-[50%]">
 
-
+                </div>
                 {{--右側詳細--}}
-                <div class="flex flex-col justify-center items-center gap-4 w-[60%]">
+                <div class="flex flex-col justify-center items-center gap-4 w-[50%] mx-10">
                     <div id="detail" class="flex flex-col gap-8">
                         {{--タイトル--}}
                         <div class="font-bold flex flex-col gap-2">
@@ -64,11 +53,46 @@
                         </aside>
                     </div>
                     <aside class="flex gap-4">
-                        <button id="restart-btn" class="btn-white">初めからやり直す</button>
-                        <button id="buy-btn" class="btn">購入する</button>
+                        <button class="btn-white">
+                            <a href="{{route("show_home")}}">初めからやり直す</a>
+                        </button>
+
+                        {{--modal open button--}}
+                        <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="btn block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
+                            購入する
+                        </button>
                     </aside>
+
+                    <!-- Main modal -->
+                    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-2xl max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        購入先リンク
+                                    </h3>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5 space-y-4">
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                        メールアドレスを入力して『送信』ボタンを押してください。<br>
+                                        ご入力頂いたメールアドレスに購入先リンクをお送り致します。
+                                    </p>
+                                    <input type="email" placeholder="test@com" class="w-full rounded-md">
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b">
+                                    <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">閉じる</button>
+                                    <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">送信</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 
