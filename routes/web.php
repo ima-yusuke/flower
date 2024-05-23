@@ -24,7 +24,7 @@ Route::get('/dashboard/register_link', [FlowerController::class, 'show_register_
 Route::get('/dashboard/add_attribute', [FlowerController::class, 'show_add_attribute'])->name('show_add_attribute');
 //管理画面/回答属性付与
 Route::get('/dashboard/register_answer_attribute', [FlowerController::class, 'show_answer_attribute'])->name('show_answer_attribute');
-
+Route::get('/dashboard/nozaki', [FlowerController::class, 'show_nozaki'])->name('show_nozaki');
 
 
 Route::get('/dashboard', function () {

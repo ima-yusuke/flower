@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/index.js',
                 'resources/js/sortable.js',
                 'resources/js/accordion.js',
+                'resources/js/nozaki.js',
             ],
             refresh: true,
         }),

@@ -76,4 +76,9 @@ class FlowerController extends Controller
         $q_data = $this->data;
         return view("dash-answer-attribute",compact("data","q_data"));
     }
+
+    public function show_nozaki()
+    {
+        return view("dash-nozaki");
+    }
 }
