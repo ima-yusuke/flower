@@ -24,7 +24,7 @@
                         </div>
                         <aside>
                             <a class="editBtn font-medium text-blue-600 hover:underline mr-4">編集</a>
-                            <a class="deleteBtn font-medium text-blue-600 hover:underline">削除?</a>
+                            <a class="deleteBtn font-medium text-blue-600 hover:underline">削除</a>
                         </aside>
                     </div>
 
@@ -34,7 +34,7 @@
                             <aside class="flex justify-between items-center border border-solid border-gray-200">
                                 <p >{{$val}}</p>
                                 <div>
-                                    <button class="border border-solid border-black">削除or非表示?</button>
+                                    <button class="border border-solid border-black">削除</button>
                                 </div>
                             </aside>
                         @endforeach

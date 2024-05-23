@@ -8,6 +8,12 @@
                         <p class="text-xs md:text-base lg:text-lg font-bold leading-6 opacity-90">{{$idx+1}}.{{$value["question"]}}</p>
                     </div>
                     <aside>
+                        <label class="inline-flex items-center cursor-pointer mr-4">
+                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 mr-2">非表示</span>
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">表示</span>
+                        </label>
                         <a class="editBtn font-medium text-blue-600 hover:underline mr-4">編集</a>
                         <a class="deleteBtn font-medium text-blue-600 hover:underline">削除</a>
                     </aside>
@@ -20,7 +26,7 @@
                             <aside id="{{$key}}" class="flex justify-between items-center border border-solid border-gray-200">
                                 <p >{{$key+1}}.{{$val}}</p>
                                 <div>
-                                    <button class="border border-solid border-black">削除or非表示?</button>
+                                    <button class="border border-solid border-black">削除</button>
                                 </div>
                             </aside>
                         @endforeach
