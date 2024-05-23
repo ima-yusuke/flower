@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+#image-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    position: relative;
+}
+
+.image {
+    max-width: 45%;
+    transition: transform 0.5s ease;
+    z-index: 1; /* Ensure images are above the container */
+}
+
+.image1-zoom-in {
+    transform: translateX(calc(100% + 10px)) scale(2.0);
+}
+
+.image2-zoom-out {
+    transform: translateX(calc(-100% - 10px)) scale(0.3);
+}
+
+.image.swapped {
+    transition: none; /* Disable transition for immediate effect */
+}
+
 * {
     box-sizing: border-box;
     font-family: sans-serif;

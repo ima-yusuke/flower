@@ -16,7 +16,7 @@
                     <aside>
                         <label class="inline-flex items-center cursor-pointer mr-4">
                             <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 mr-2">非表示</span>
-                            <input type="checkbox" value="" class="sr-only peer">
+                            <input type="checkbox" value="" class="sr-only peer" checked>
                             <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">表示</span>
                         </label>
@@ -76,29 +76,53 @@
                 </div>
 
                 {{--新規商品詳細登録フォーム（最初非表示）--}}
-                <div class="qa__body">
-                    <form class="Form flex flex-col gap-8" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
+                <div class="qa__body flex flex-col">
+                    <form class="flex flex-col" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-8">必須</span> 商品名</label>
-                                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="母の日セット" required />
+                        <div class="flex items-center border-y border-solid border-gray-200 py-4">
+                            <div class="flex flex-col gap-2">
+                                <p class="bg-red-500 w-[50px] text-white text-sm font-medium me-2 text-center px-2.5 py-0.5 rounded-lg">必須</p>
+                                <p class="w-[250px]">1.商品画像</p>
                             </div>
-                            <div>
-                                <label for="img" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-8">必須</span> 商品画像</label>
-                                <input type="file" accept="image/jpeg,image/png"  name="img" id="img" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <div class="flex-1">
+                                <input type="file" accept="image/jpeg,image/png"  name="img" id="img" class="w-full border border-solid border-gray-400 rounded-md" required />
                             </div>
-                            <div>
-                                <label for="pickup_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">受取リンク</label>
-                                <input type="text" name="pickup_link" id="pickup_link" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                            <div class="flex flex-col gap-2">
+                                <p class="bg-red-500 w-[50px] text-white text-sm font-medium me-2 text-center px-2.5 py-0.5 rounded-lg">必須</p>
+                                <p class="w-[250px]">2.商品名</p>
                             </div>
-                            <div>
-                                <label for="delivery_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">郵送リンク</label>
-                                <input type="text" name="delivery_link" id="delivery_link" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <div class="flex-1">
+                                <input name="name" class="w-full border border-solid border-gray-400 rounded-md" required />
                             </div>
-                            <div>
-                                <label for="priority" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">プライオリティ</label>
-                                <input type="number" name="priority" id="priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                            <p class="w-[250px]">3.プライオリティ</p>
+                            <div class="flex-1">
+                                <select name="priority" class="w-full border border-solid border-gray-400 rounded-md">
+                                    <option value="0">優先度：低</option>
+                                    <option value="1">優先度：中</option>
+                                    <option value="2">優先度：高</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                            <p class="w-[250px]">4.受取リンク</p>
+                            <div class="flex-1">
+                                <input name="pickup_link" class="w-full border border-solid border-gray-400 rounded-md">
+                            </div>
+                        </div>
+                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                            <p class="w-[250px]">5.郵送リンク</p>
+                            <div class="flex-1">
+                                <input name="delivery_link" class="w-full border border-solid border-gray-400 rounded-md">
+                            </div>
+                        </div>
+                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                            <p class="w-[250px]">6.商品詳細</p>
+                            <div class="flex-1">
+                                <input  class="w-full border border-solid border-gray-400 rounded-md" required>
                             </div>
                         </div>
                         <x-register_btn></x-register_btn>
