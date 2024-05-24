@@ -81,4 +81,9 @@ class FlowerController extends Controller
     {
         return view("dash-nozaki");
     }
+
+    public function show_swap()
+    {
+        return view("dash-swap");
+    }
 }
