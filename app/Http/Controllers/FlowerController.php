@@ -36,6 +36,23 @@ class FlowerController extends Controller
         ["id" => 4,"order"=>4, "name" => "テスト花","img"=>"img/flower01.jpeg","text"=>"テスト花です。"],
     ];
 
+    public $category_data =[
+        ["id" => 1, "name" => "色"],
+        ["id" => 2, "name" => "サイズ"],
+        ["id" => 3, "name" => "価格"],
+    ];
+
+    public $attribute_data = [
+        ["id" => 1, "category_id" => 1, "name" => "赤色", "is_enable" => 1],
+        ["id" => 2, "category_id" => 1, "name" => "黄色", "is_enable" => 1],
+        ["id" => 3, "category_id" => 1, "name" => "白色", "is_enable" => 1],
+        ["id" => 4, "category_id" => 2, "name" => "小", "is_enable" => 1],
+        ["id" => 5, "category_id" => 2, "name" => "中", "is_enable" => 1],
+        ["id" => 6, "category_id" => 2, "name" => "大", "is_enable" => 1],
+        ["id" => 7, "category_id" => 3, "name" => "お手頃", "is_enable" => 1],
+        ["id" => 8, "category_id" => 3, "name" => "高級", "is_enable" => 1],
+    ];
+
     //ホーム画面
     public function show_home()
     {
@@ -87,7 +104,9 @@ class FlowerController extends Controller
 
     public function show_nozaki()
     {
-        return view("dash-nozaki");
+        $ct_data = $this->category_data;
+        $att_data = $this->attribute_data;
+        return view("dash-nozaki", compact("ct_data", "att_data"));
     }
 
     public function show_swap()

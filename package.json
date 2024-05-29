@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "flowbite": "^2.3.0",
-        "quill": "^2.0.2"
+        "quill": "^2.0.2",
+        "interactjs": "^1.10.27"
     }
 }
