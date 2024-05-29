@@ -26,19 +26,19 @@
                     </div>
 
                     {{-- 回答（最初非表示） --}}
-                    <div class="qa__body">
+                    <div class="qa__body flex flex-col gap-8">
                         <div class="answer_sortable">
                             @foreach($value["answer"] as $key=>$val)
                                 <aside id="{{$key}}" class="flex justify-between items-center border border-solid border-gray-200">
-                                    <p >{{$key+1}}.{{$val}}</p>
+                                    <p class="pl-2">{{$key+1}}.{{$val}}</p>
                                     <div>
                                         <button class="border border-solid border-black">削除</button>
                                     </div>
                                 </aside>
                             @endforeach
                         </div>
-                        <aside>
-                            <input type="text" placeholder="新しい回答">
+                        <aside class="w-full flex">
+                            <input type="text" placeholder="新しい回答" class="flex-grow p-2 border border-gray-400">
                             <button class="border border-solid border-black">追加</button>
                         </aside>
                     </div>
@@ -62,22 +62,30 @@
                 </div>
 
                 {{--新規回答フォーム（最初非表示）--}}
-                <div class="qa__body">
-                    <form class="Form flex flex-col gap-8" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
+                <div class="qa__body flex flex-col">
+                    <form class="flex flex-col" method="post" action="{{route("show_home")}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <label for="question" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-8">必須</span>質問</label>
-                                <input type="text" name="question" id="question" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="価格帯は？" required />
+                        <div class="flex items-center border-y border-solid border-gray-200 py-4">
+                            <div class="flex flex-col gap-2">
+                                <p class="bg-red-500 w-[50px] text-white text-sm font-medium me-2 text-center px-2.5 py-0.5 rounded-lg">必須</p>
+                                <p class="w-[250px]">1.質問</p>
                             </div>
-                            <br>
-                            <div>
-                                <label for="answer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded-8">必須</span>回答</label>
-                                <input type="text" name="answer" id="answer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="5,000円未満" required />
+                            <div class="flex-1">
+                                <input name="question" class="w-full border border-solid border-gray-400 rounded-md" required />
                             </div>
-                            <br>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 border-b border-solid border-gray-200 py-4">
+                            <div class="flex items-center w-full">
+                                <div class="flex flex-col gap-2">
+                                    <p class="bg-red-500 w-[50px] text-white text-sm font-medium me-2 text-center px-2.5 py-0.5 rounded-lg">必須</p>
+                                    <p class="w-[250px]">2.回答</p>
+                                </div>
+                                <div class="flex flex-col gap-6 w-full" id="answerInp">
+                                    <input name="name" class="newAnswer" required />
+                                </div>
+                            </div>
                             <div>
-                                <button class="border border-solid border-black">回答の追加</button>
+                                <button type="button" id="createInpBtn" class="border border-solid border-black">回答の追加</button>
                             </div>
                         </div>
                         <x-register_btn></x-register_btn>

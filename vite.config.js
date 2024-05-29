@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/sortable.js',
                 'resources/js/accordion.js',
                 'resources/js/nozaki.js',
+                'resources/js/createAnswerInp.js',
             ],
             refresh: true,
         }),

@@ -28,6 +28,14 @@ class FlowerController extends Controller
         ["id" => 3, "category_name" => "価格","attributes"=>["お手頃","高級"]],
     ];
 
+    //swap用テストデータ
+    public $test_product_data =[
+        ["id" => 1, "order"=>1, "name" => "コスモス","img"=>"img/flower01.jpg","text"=>"コスモスの花は、ピンクや白に加えて濃赤、黄やオレンジ色、複色が登場し、年々カラフルになっています。性質はいたって丈夫で、日当たりと風通しがよい場所であれば、あまり土質を選ばずに育ちます。"],
+        ["id" => 2, "order"=>2,"name" => "チューリップ","img"=>"img/flower03.jpg","text"=>"チューリップは花も葉もシンプルで美しく、世界中で人気のある球根植物です。これまでに数えられないほどの品種が誕生し、現在の品種リストには5000を超える品種が登録され、およそ1000品種が世界中で育てられています。"],
+        ["id" => 3,"order"=>3, "name" => "ひまわり","img"=>"img/flower02.jpeg","text"=>"夏を代表する花であるひまわり（ヒマワリ）。4～6月頃に種をまくと1週間ほどで発芽し、7～9月に開花時期を迎えて、大きなものでは3mほどにまで成長します。"],
+        ["id" => 4,"order"=>4, "name" => "テスト花","img"=>"img/flower01.jpeg","text"=>"テスト花です。"],
+    ];
+
     //ホーム画面
     public function show_home()
     {
@@ -84,6 +92,7 @@ class FlowerController extends Controller
 
     public function show_swap()
     {
-        return view("dash-swap");
+        $data = $this->test_product_data;
+        return view("dash-swap",compact("data"));
     }
 }

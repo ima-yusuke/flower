@@ -56,9 +56,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <button class="border border-solid border-black">更新</button>
+                    {{--テキスト箇所--}}
+                    <div class="editor flex flex-col py-4 border-b border-solid border-gray-200">
+                        <p class="w-[250px] mb-4">4.商品詳細</p>
                     </div>
+                    <x-register_btn></x-register_btn>
                 </div>
             </div>
         @endforeach
@@ -71,7 +73,7 @@
                         </p>
                     </div>
                     <aside>
-                        <a class="editBtn font-medium text-blue-600 hover:underline">追加</a>
+                        <a class="editBtn addProductBtn font-medium text-blue-600 hover:underline">編集</a>
                     </aside>
                 </div>
 
@@ -119,11 +121,9 @@
                                 <input name="delivery_link" class="w-full border border-solid border-gray-400 rounded-md">
                             </div>
                         </div>
-                        <div class="flex items-center border-b border-solid border-gray-200 py-4">
+                        {{--テキスト箇所--}}
+                        <div class="editor flex flex-col border-b border-solid border-gray-200 py-4">
                             <p class="w-[250px]">6.商品詳細</p>
-                            <div class="flex-1">
-                                <input  class="w-full border border-solid border-gray-400 rounded-md" required>
-                            </div>
                         </div>
                         <x-register_btn></x-register_btn>
                     </form>
