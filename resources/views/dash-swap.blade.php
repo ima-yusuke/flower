@@ -1,4 +1,28 @@
 <x-app-layout>
+    <style>
+        * {
+            transition: all 0.5s;
+        }
+
+        .square {
+            display: block;
+            position: relative;
+        }
+
+        .square::before {
+            content: "";
+            padding-top: 100%;
+            display: block;
+        }
+
+        .square img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
     <div class="flex justify-center items-center py-12">
         {{--swap コンテイナー--}}
         <div class="image-container flex flex-col justify-center items-center gap-y-24">
@@ -6,9 +30,12 @@
             {{--too画像--}}
             <div class="flex justify-center gap-12">
                 <div>
-                    <img src="{{asset($data[0]["img"])}}" id="image0" data-key="{{$data[0]['id']}}" class="top_image">
+                    <div class="square" style="width: 300px">
+                        <img src="{{asset($data[0]["img"])}}" id="image0" data-key="{{$data[0]['order']}}" class="relative z-50 object-cover rounded-full">
+                        <img src="{{asset($data[0]["img"])}}" id="image0-fill" data-key="{{$data[0]['order']}}" class="relative z-40 object-cover rounded-full">
+                    </div>
                 </div>
-                <div class="flex flex-col gap-8 w-[500px]">
+                <div id="description" class="flex flex-col gap-8 w-[500px]">
                     <div class="font-bold flex flex-col gap-2">
                         <p>あなたにおすすめなのは</p>
                         <aside class="flex items-end gap-2">
@@ -21,12 +48,25 @@
                 </div>
             </div>
             {{--下の画像3つ--}}
-            <div class="flex gap-64" id="small_image_container">
+            <div class="flex w-full" id="small_image_container">
                 @foreach($data as $key=>$value)
-                    @if($key!==0)
-                        <div class="flex flex-col items-center gap-2">
-                            <img src="{{asset($value["img"])}}" data-key="{{ $value['id']}}" class="image small_image">
-                            <p class="rank">【第{{$value["order"]}}位】</p>
+                    @if($value["order"] == 1)
+                        <div id="{{ __('imgContainer-'.$value['order']) }}" class="flex justify-center items-center w-0">
+                            <div id="{{ __('imgWrapper-'.$value['order']) }}" class="hidden border shadow rounded-lg p-4 flex-col items-center gap-2 cursor-pointer img-wrapper" data-key="{{ $value['order']}}">
+                                <div class="square" style="width: 100px">
+                                    <img src="{{asset($value["img"])}}" class="object-cover rounded-full" style="transform: translate(0, 0);">
+                                </div>
+                                <p class="rank">【第{{$value["order"]}}位】</p>
+                            </div>
+                        </div>
+                    @else
+                        <div id="{{ __('imgContainer-'.$value['order']) }}" class="flex flex-1 justify-center items-center w-0">
+                            <div id="{{ __('imgWrapper-'.$value['order']) }}" class="flex border shadow rounded-lg p-4 flex-col items-center gap-2 cursor-pointer  img-wrapper" data-key="{{ $value['order']}}">
+                                <div class="square" style="width: 100px">
+                                    <img src="{{asset($value["img"])}}" class="object-cover rounded-full" style="transform: translate(0, 0);">
+                                </div>
+                                <p class="rank">【第{{$value["order"]}}位】</p>
+                            </div>
                         </div>
                     @endif
                 @endforeach
@@ -35,122 +75,72 @@
     </div>
 
     <script>
-        // データをphpから取得し、さらにimgにasset関数を追加
-        const products = @json(array_map(function ($product) {
-        $product['img'] = asset($product['img']);
-        return $product;
-        }, $data));
+        window.Laravel = {};
+        window.Laravel.data = @json($data);
+        console.log(window.Laravel.data);
 
-        // メイン(1位）画像
-        const mainImage = document.getElementById('image0');
+        document.querySelectorAll('.img-wrapper').forEach((element) => {
+            element.addEventListener('click', (e) => {
+                const topImg = document.querySelector('#image0');
+                const topImgOrder = topImg.getAttribute('data-key');
+                const insertImg = document.querySelector(`#imgWrapper-${element.getAttribute('data-key')} img`);
+                const insertImgOrder = element.getAttribute('data-key');
+                const insertContainer = document.querySelector(`#imgContainer-${insertImgOrder}`);
+                const moveWrapper = document.querySelector(`#imgWrapper-${topImgOrder}`);
+                const moveImg = document.querySelector(`#imgWrapper-${topImgOrder} img`);
+                const moveContainer = document.querySelector(`#imgContainer-${topImgOrder}`);
+                let targetOrder = Number(topImgOrder) - 1;
+                if (Number(topImgOrder) < Number(insertImgOrder)) {
+                    targetOrder = Number(topImgOrder) + 1;
+                }
+                const targetWrapper = document.querySelector(`#imgWrapper-${targetOrder}`);
+                const targetImg = document.querySelector(`#imgWrapper-${targetOrder} img`);
 
-        // その他の候補の画像3つ
-        const images = document.querySelectorAll('.image-container .flex img');
+                const topImgFill = document.querySelector('#image0-fill');
 
-        // メイン画像の表示位置を固定させるためtop、leftに現在の位置を追加
-        mainImage.style.top = mainImage.offsetTop + 'px';
-        mainImage.style.left = mainImage.offsetLeft +'px';
+                const topImgTop = topImg.getBoundingClientRect().top;
+                const topImgLeft = topImg.getBoundingClientRect().left;
+                const topImgWidth = topImg.getBoundingClientRect().width;
+                const topImgHeight = topImg.getBoundingClientRect().height;
 
-        // 同様に各候補画像の表示位置を固定させるためtop、leftに現在の位置を追加
-        images.forEach(image => {
-            image.style.top = image.offsetTop + 'px';
-            image.style.left = image.offsetLeft + 'px';
-        });
+                const insertImgTop = insertImg.getBoundingClientRect().top;
+                const insertImgLeft = insertImg.getBoundingClientRect().left;
+                const insertImgWidth = insertImg.getBoundingClientRect().width;
+                const insertImgHeight = insertImg.getBoundingClientRect().height;
 
-        // 下の画像クリック時の処理
-        images.forEach(image => {
-            image.addEventListener('click', function() {
-                // getBoundingClientRectは要素のtop、right、bottom、left、width、heightを返す
-                // メイン画像の中心座標を計算
-                const mainImageRect = mainImage.getBoundingClientRect();
-                const mainImageCenterX = mainImageRect.left + mainImageRect.width / 2;
-                const mainImageCenterY = mainImageRect.top + mainImageRect.height / 2;
+                const targetImgTop = targetImg.getBoundingClientRect().top;
+                const targetImgLeft = targetImg.getBoundingClientRect().left;
+                const targetImgWidth = targetImg.getBoundingClientRect().width;
+                const targetImgHeight = targetImg.getBoundingClientRect().height;
 
-                // クリックされた画像の中心座標を計算
-                const imageRect = image.getBoundingClientRect();
-                const imageCenterX = imageRect.left + imageRect.width / 2;
-                const imageCenterY = imageRect.top + imageRect.height / 2;
+                insertImg.style.transform = 'translate(' + ((topImgLeft - insertImgLeft) + (topImgWidth - insertImgWidth)/2) + 'px, ' + ((topImgTop - insertImgTop) + (topImgHeight - insertImgHeight)/2) + 'px)';
+                insertImg.style.zIndex = 20;
 
-                // メイン画像とクリックされた画像の中心の差を計算
-                const deltaX = mainImageCenterX - imageCenterX;
-                const deltaY = mainImageCenterY - imageCenterY;
+                moveImg.style.transform = 'translate(' + ((topImgLeft - targetImgLeft) + (topImgWidth - targetImgWidth)/2) + 'px, ' + ((topImgTop - targetImgTop) + (topImgHeight - targetImgHeight)/2) + 'px)';
+                moveImg.style.opacity = 0;
 
-                // クリックした画像をメイン画像の中心に移動
-                image.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                topImgFill.src = insertImg.src;
+                topImg.setAttribute('data-key', insertImgOrder);
+                topImgFill.setAttribute('data-key', insertImgOrder);
 
-                // クリックした画像が動き始めて500後に下記実行される
                 setTimeout(() => {
-                    //画像srcの入れ替え
-                    const tempSrc = mainImage.src;
-                    mainImage.src = image.src;
-                    image.src = tempSrc;
-
-                    // クリックされた画像のid取得
-                    let selectedImgId = image.getAttribute('data-key');
-
-                    // クリックされた画像のidをもとにデータ取得
-                    let newMainProduct = null;
-                    // ソートで使用（新small画像3つのデータ）
-                    let newImagesArray = [];
-
-                    products.forEach((value)=>{
-                        if(value["id"]==selectedImgId){
-                            newMainProduct = value;
-                        }else{
-                            newImagesArray.push(value)
-                        }
-                    })
-
-                    // data-keyの更新
-                    image.setAttribute("data-key",mainImage.getAttribute('data-key'))
-                    mainImage.setAttribute("data-key",selectedImgId)
-
-                    // 名前更新
-                    let p_name =document.getElementById("p_name");
-                    p_name.innerHTML = newMainProduct["name"]
-
-                    // 詳細更新
-                    let p_detail =document.getElementById("p_detail");
-                    p_detail.innerHTML = newMainProduct["text"]
-
-                    // imageのみ動いている（mainImageはsrcのみ変更）
-                    // ①imageがまずmainImageのとこに移動（imageに上記image.style.transformでtransform追加)
-                    // ②imageのsrcが変わる
-                    // ③下記でtransformを空にすることで元の位置に戻る
-                    image.style.transform = '';
-
-                    // ここからsort（案）
-                    function compareOrder(a, b) {
-                        return a.order - b.order;
-                    }
-
-                    // newImagesArrayをorderの数が小さい順にソートする
-                    newImagesArray.sort(compareOrder);
-
-                    setTimeout(()=>{
-                        let smallImages = document.querySelectorAll("#small_image_container div img");
-                        let ranks = document.getElementsByClassName("rank");
-
-                        // 一度画像を非表示
-                        for(let i= 0; i<smallImages.length;i++){
-                            smallImages[i].classList.add("fade-out");
-                            ranks[i].classList.add("fade-out");
-                        }
-
-                        // ソートしてから再度表示させる
-                        setTimeout(()=>{
-                            for(let i= 0; i<smallImages.length;i++){
-                                smallImages[i].src = newImagesArray[i].img;
-                                smallImages[i].setAttribute("data-key",newImagesArray[i]["id"])
-                                ranks[i].innerHTML ="【第"+ newImagesArray[i].order+"位】";
-                                smallImages[i].classList.remove("fade-out");
-                                ranks[i].classList.remove("fade-out");
-                            }
-                        },500)
-
-                    },500)
-
-                }, 700);
+                    topImg.style.opacity = 0;
+                    element.style.opacity = 0;
+                    setTimeout(() => {
+                        topImg.src = insertImg.src;
+                        topImg.setAttribute('data-key', insertImgOrder);
+                        topImg.style.opacity = 1;
+                        insertContainer.classList.remove('flex-1');
+                        moveContainer.classList.add('flex-1');
+                        moveWrapper.classList.remove('hidden');
+                        moveWrapper.classList.add('flex');
+                        setTimeout(() => {
+                            moveWrapper.style.opacity = 1;
+                            moveImg.style.opacity = 1;
+                            moveImg.style.transform = 'translate(0, 0)';
+                        }, 150);
+                    }, 500);
+                }, 500);
             });
         });
     </script>
