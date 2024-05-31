@@ -114,4 +114,10 @@ class FlowerController extends Controller
         $data = $this->test_product_data;
         return view("dash-swap",compact("data"));
     }
+
+    public function show_swap2()
+    {
+        $data = $this->test_product_data;
+        return view("dash-swap2",compact("data"));
+    }
 }
