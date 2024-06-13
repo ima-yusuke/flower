@@ -46,11 +46,19 @@ class FlowerController extends Controller
         ["id" => 1, "category_id" => 1, "name" => "赤色", "is_enable" => 1],
         ["id" => 2, "category_id" => 1, "name" => "黄色", "is_enable" => 1],
         ["id" => 3, "category_id" => 1, "name" => "白色", "is_enable" => 1],
-        ["id" => 4, "category_id" => 2, "name" => "小", "is_enable" => 1],
-        ["id" => 5, "category_id" => 2, "name" => "中", "is_enable" => 1],
-        ["id" => 6, "category_id" => 2, "name" => "大", "is_enable" => 1],
-        ["id" => 7, "category_id" => 3, "name" => "お手頃", "is_enable" => 1],
-        ["id" => 8, "category_id" => 3, "name" => "高級", "is_enable" => 1],
+        ["id" => 4, "category_id" => 1, "name" => "緑色", "is_enable" => 1],
+        ["id" => 5, "category_id" => 1, "name" => "青色", "is_enable" => 1],
+        ["id" => 6, "category_id" => 2, "name" => "小", "is_enable" => 1],
+        ["id" => 7, "category_id" => 2, "name" => "中", "is_enable" => 1],
+        ["id" => 8, "category_id" => 2, "name" => "大", "is_enable" => 1],
+        ["id" => 9, "category_id" => 3, "name" => "お手頃", "is_enable" => 1],
+        ["id" => 10, "category_id" => 3, "name" => "高級", "is_enable" => 1],
+    ];
+
+    public $product_data = [
+        ["id" => 1, "name" => "product1", "img" => "#", "pickup_link" => "#", "delivery_link" => "#", "priority" => 1, "is_enable" => 1],
+        ["id" => 2, "name" => "product2", "img" => "#", "pickup_link" => "#", "delivery_link" => "#", "priority" => 2, "is_enable" => 1],
+        ["id" => 3, "name" => "product3", "img" => "#", "pickup_link" => "#", "delivery_link" => "#", "priority" => 3, "is_enable" => 1]
     ];
 
     //ホーム画面
@@ -106,7 +114,8 @@ class FlowerController extends Controller
     {
         $ct_data = $this->category_data;
         $att_data = $this->attribute_data;
-        return view("dash-nozaki", compact("ct_data", "att_data"));
+        $product_data = $this->product_data;
+        return view("dash-nozaki", compact("ct_data", "att_data", "product_data"));
     }
 
     public function show_swap()

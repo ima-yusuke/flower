@@ -16,8 +16,9 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.11.3",
         "flowbite": "^2.3.0",
-        "quill": "^2.0.2",
-        "interactjs": "^1.10.27"
+        "interactjs": "^1.10.27",
+        "quill": "^2.0.2"
     }
 }

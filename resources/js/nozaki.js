@@ -2,13 +2,13 @@ import interact from 'interactjs'
 import '/resources/css/nozaki.css'
 
 //ドラッグ&ドロップ用のjs
-
+var categoryElements = document.querySelectorAll('.category-zone');
 //draggingの処理
 // target elements with the "draggable" class
 interact('.draggable')
     .draggable({
-        // enable inertial throwing
-        inertia: true,
+        // 慣性のオンオフ
+        inertia: false,
         // keep the element within the area of it's parent
         modifiers: [
             interact.modifiers.restrictRect({
@@ -23,16 +23,23 @@ interact('.draggable')
         listeners: {
             // call this function on every dragmove event
             move: dragMoveListener,
-
-            // call this function on every dragend event
-            end (event) {
-                var textEl = event.target.querySelector('p')
-
-                textEl && (textEl.textContent =
-                    'moved a distance of ' +
-                    (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-                        Math.pow(event.pageY - event.y0, 2) | 0))
-                        .toFixed(2) + 'px')
+            end(event) {
+                const parent = event.target.closest('.category-zone');
+                if (parent) {
+                    const parentRect = parent.getBoundingClientRect();
+                    const elementRect = event.target.getBoundingClientRect();
+                    // 要素が親要素の外でドロップされた場合、元の位置に戻す
+                    if (
+                        elementRect.right < parentRect.left ||
+                        elementRect.left > parentRect.right ||
+                        elementRect.bottom < parentRect.top ||
+                        elementRect.top > parentRect.bottom
+                    ) {
+                        event.target.style.transform = 'translate(0px, 0px)';
+                        event.target.setAttribute('data-x', 0);
+                        event.target.setAttribute('data-y', 0);
+                    }
+                }
             }
         }
     })
@@ -88,6 +95,36 @@ interact('.dropzone').dropzone({
     },
     ondrop: function (event) {
         // event.relatedTarget.textContent = 'Dropped'
+        const dropzoneElement = event.target;
+        const draggableElement = event.relatedTarget;
+
+        const clone = draggableElement.cloneNode(true);
+        clone.removeAttribute('id'); // id名を削除
+        clone.className = 'mx-3 h-fit text-center save-card'; // クラス名を指定されたもののみに変更
+        clone.style.transform = 'translate(0px, 0px)';
+        clone.setAttribute('data-x', 0);
+        clone.setAttribute('data-y', 0);
+
+        //icons
+        const closeButton = document.createElement('i');
+        closeButton.className = 'bi bi-x-circle';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '-8px'; // 上部から8pxはみ出す
+        closeButton.style.right = '-8px'; // 右部から8pxはみ出す
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.fontSize = '1rem';
+        closeButton.style.color = 'black'; // 文字色を黒に設定
+        closeButton.style.backgroundColor = 'white'; // 背景色を白に設定
+        closeButton.style.borderRadius = '50%'; // 円形にするためのスタイル
+
+        closeButton.addEventListener('click', () => {
+            clone.remove();
+        });
+
+        clone.appendChild(closeButton);
+        clone.style.position = 'relative'; // 相対位置にすることで、アイコンの位置を正しく設定
+
+        dropzoneElement.appendChild(clone);
     },
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
@@ -96,16 +133,16 @@ interact('.dropzone').dropzone({
     }
 })
 
-interact('.drag-drop')
-    .draggable({
-        inertia: true,
-        modifiers: [
-            interact.modifiers.restrictRect({
-                restriction: 'parent',
-                endOnly: true
-            })
-        ],
-        autoScroll: true,
-        // dragMoveListener from the dragging demo above
-        listeners: { move: dragMoveListener }
-    })
+// interact('.drag-drop')
+//     .draggable({
+//         inertia: true,
+//         modifiers: [
+//             interact.modifiers.restrictRect({
+//                 restriction: 'parent',
+//                 endOnly: true
+//             })
+//         ],
+//         autoScroll: true,
+//         // dragMoveListener from the dragging demo above
+//         listeners: { move: dragMoveListener }
+//     })

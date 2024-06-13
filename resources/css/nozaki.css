@@ -1,19 +1,14 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*interact.js用のcss*/
-#outer-dropzone {
-    height: 250px;
-}
 
-.dropzone {
-    background-color: #bfe4ff;
+.dropzone, .category-zone  {
     border: dashed 4px transparent;
     border-radius: 4px;
-    margin: 10px auto 30px;
-    padding: 50px 10px 10px 10px;
-    width: 30%;
+    padding: 10px;
     transition: background-color 0.3s;
 }
 
@@ -30,7 +25,7 @@
 .drag-drop {
     display: inline-block;
     min-width: 40px;
-    padding: 0.5em 0.5em;
+    padding: 0.3em;
 
     color: #fff;
     background-color: #29e;
@@ -42,7 +37,17 @@
     transition: background-color 0.3s;
 }
 
-.drag-drop.can-drop {
-    color: #000;
-    background-color: #4e4;
+.save-card {
+    display: inline-block;
+    min-width: 40px;
+    padding: 0.3em;
+
+    color: #fff;
+    background-color: #29e;
+    border: solid 2px #fff;
 }
+
+/*.drag-drop.can-drop {*/
+/*    color: #000;*/
+/*    background-color: #4e4;*/
+/*}*/
